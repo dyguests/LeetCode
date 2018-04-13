@@ -1,5 +1,11 @@
 package q1_twoSum
 
+/**
+ *
+ * https://leetcode-cn.com/problems/two-sum/description/
+ *
+ * @author fanhl
+ */
 object Q1 {
     @JvmStatic
     fun main(args: Array<String>) {
@@ -7,6 +13,7 @@ object Q1 {
 
         find(solution, intArrayOf(1, 3, 4), 5)
         find(solution, intArrayOf(1, 2, 2, 3, 4), 5)
+        find(solution, intArrayOf(2, 7, 11, 15), 9)
     }
 
     private fun find(solution: Solution, nums: IntArray, target: Int) {
