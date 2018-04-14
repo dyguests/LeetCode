@@ -1,5 +1,7 @@
 package q2_AddTwoNumbers
 
+import java.math.BigDecimal
+
 /**
  * https://leetcode-cn.com/problems/add-two-numbers/description/
  *
@@ -10,13 +12,13 @@ object Q2 {
     fun main(args: Array<String>) {
         val solution = Solution()
 
-        find(solution, 342L, 465L)
-        find(solution, 999999999L, 999999999L)
+        find(solution, "342", "465")
+        find(solution, "999999999", "999999999")
     }
 
-    private fun find(solution: Solution, num1: Long, num2: Long) {
-        val l1 = solution.num2node(num1)
-        val l2 = solution.num2node(num2)
+    private fun find(solution: Solution, num1: String, num2: String) {
+        val l1 = solution.num2node(BigDecimal(num1))
+        val l2 = solution.num2node(BigDecimal(num2))
 
         val result = solution.addTwoNumbers(l1, l2)
 
@@ -50,11 +52,20 @@ object Q2 {
             return num2node(nL1 + nL2)
         }
 
-        private fun node2num(listNode: ListNode): Long {
-            return listNode.`val` + (listNode.next?.let { 10 * node2num(it) } ?: 0)
+        private fun node2num(listNode: ListNode): BigDecimal {
+            var tmpNode: ListNode? = listNode
+
+            val sb = StringBuilder()
+
+            while (tmpNode?.`val` != null) {
+                sb.append(tmpNode.`val`)
+                tmpNode = tmpNode.next
+            }
+
+            return BigDecimal(sb.toString())
         }
 
-        fun num2node(num: Long): ListNode? {
+        fun num2node(num: BigDecimal): ListNode? {
             var node: ListNode? = null
             num.toString().map { it.toString().toInt() }.forEach {
                 node = ListNode(it).apply { next = node }
