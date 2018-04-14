@@ -21,6 +21,8 @@ object Q15 {
 
     class Solution {
         fun threeSum(nums: IntArray): List<List<Int>> {
+            nums.sort()
+
             val lists = ArrayList<List<Int>>()
 
             for (pl in 0..(nums.size - 1 - 2)) {
