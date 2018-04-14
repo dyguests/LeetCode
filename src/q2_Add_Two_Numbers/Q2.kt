@@ -1,4 +1,4 @@
-package q2_AddTwoNumbers
+package q2_Add_Two_Numbers
 
 import java.math.BigDecimal
 

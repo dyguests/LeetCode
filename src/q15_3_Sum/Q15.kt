@@ -1,7 +1,5 @@
-package q1_TwoSum
+package q1_Two_Sum
 
-import com.sun.jmx.remote.internal.ArrayQueue
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
