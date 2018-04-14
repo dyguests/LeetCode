@@ -23,14 +23,14 @@ object Q1 {
 
     class Solution {
         fun twoSum(nums: IntArray, target: Int): IntArray {
-            for (p1 in 0..(nums.size - 1)) {
+            for (p1 in 0..(nums.size - 2)) {
                 for (p2 in (p1 + 1)..(nums.size - 1)) {
                     if (nums[p1] + nums[p2] == target) {
                         return intArrayOf(p1, p2)
                     }
                 }
             }
-            return IntArray(0)
+            return intArrayOf(0, 1)
         }
     }
 }
