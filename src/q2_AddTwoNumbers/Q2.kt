@@ -10,16 +10,17 @@ object Q2 {
     fun main(args: Array<String>) {
         val solution = Solution()
 
-        find(solution, 342, 465)
+        find(solution, 342L, 465L)
+        find(solution, 999999999L, 999999999L)
     }
 
-    private fun find(solution: Solution, num1: Int, num2: Int) {
-        val l1 = solution.node(num1)
-        val l2 = solution.node(num2)
+    private fun find(solution: Solution, num1: Long, num2: Long) {
+        val l1 = solution.num2node(num1)
+        val l2 = solution.num2node(num2)
 
         val result = solution.addTwoNumbers(l1, l2)
 
-        println("${str(l1)}+${str(l2)}+${str(result)}")
+        println("${str(l1)}+${str(l2)}=${str(result)}")
     }
 
     private fun str(listNode: ListNode?): String {
@@ -43,17 +44,17 @@ object Q2 {
 
     class Solution {
         fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
-            val nL1: Int = listNode2Number(l1 ?: return null)
-            val nL2: Int = listNode2Number(l2 ?: return null)
+            val nL1 = node2num(l1 ?: return null)
+            val nL2 = node2num(l2 ?: return null)
 
-            return node(nL1 + nL2)
+            return num2node(nL1 + nL2)
         }
 
-        private fun listNode2Number(listNode: ListNode): Int {
-            return listNode.`val` + (listNode.next?.let { 10 * listNode2Number(it) } ?: 0)
+        private fun node2num(listNode: ListNode): Long {
+            return listNode.`val` + (listNode.next?.let { 10 * node2num(it) } ?: 0)
         }
 
-        fun node(num: Int): ListNode? {
+        fun num2node(num: Long): ListNode? {
             var node: ListNode? = null
             num.toString().map { it.toString().toInt() }.forEach {
                 node = ListNode(it).apply { next = node }
