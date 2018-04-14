@@ -1,5 +1,9 @@
 package q1_TwoSum
 
+import com.sun.jmx.remote.internal.ArrayQueue
+import java.util.*
+import kotlin.collections.ArrayList
+
 /**
  *
  * https://leetcode-cn.com/problems/3sum/description/
@@ -12,6 +16,7 @@ object Q15 {
         val solution = Solution()
 
         find(solution, intArrayOf(-1, 0, 1, 2, -1, -4))
+        find(solution, intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0))
 
 //        test(solution, arrayListOf(-1, 0, 1, 2), -3)
 //        test(solution, arrayListOf(-1, 0, 1, 2), -2)
@@ -81,15 +86,16 @@ object Q15 {
 
         fun threeSum(nums: IntArray): List<List<Int>> {
             nums.sort()
+            val numsDistinct3 = distinct3(nums)
 
             val lists = ArrayList<List<Int>>()
 
-            for (pl in 0..(nums.size - 1 - 2)) {
-                for (pm in (pl + 1)..(nums.size - 1 - 1)) {
-                    val numR = -nums[pl] - nums[pm]
-                    val pr = indexOfSorted(nums, pm + 1, nums.size - 1, numR)
+            for (pl in 0..(numsDistinct3.size - 1 - 2)) {
+                for (pm in (pl + 1)..(numsDistinct3.size - 1 - 1)) {
+                    val numR = -numsDistinct3[pl] - numsDistinct3[pm]
+                    val pr = indexOfSorted(numsDistinct3, pm + 1, numsDistinct3.size - 1, numR)
                     if (pr >= 0) {
-                        lists.add(listOf(nums[pl], nums[pm], nums[pr]))
+                        lists.add(listOf(numsDistinct3[pl], numsDistinct3[pm], numsDistinct3[pr]))
                     }
                 }
             }
@@ -110,6 +116,25 @@ object Q15 {
                 }
             } while (l <= r)
             return -1
+        }
+
+        /**
+         * 将重复超过3次的数字去掉多余的次数（最多重复三次）
+         */
+        private fun distinct3(nums: IntArray): IntArray {
+            if (nums.size <= 3) {
+                return nums.copyOf()
+            }
+            val list = arrayListOf(nums[0], nums[1], nums[2])
+
+            (3..(nums.size - 1)).forEach {
+                val item = nums[it]
+                if (item != list[list.size - 3] || item != list[list.size - 2] || item != list[list.size - 1]) {
+                    list.add(item)
+                }
+            }
+
+            return list.toIntArray()
         }
 
         fun test(list: ArrayList<Int>, item: Int) {
