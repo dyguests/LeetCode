@@ -12,8 +12,9 @@ object Q2 {
     fun main(args: Array<String>) {
         val solution = Solution()
 
+//        find(solution, "81", "0")
         find(solution, "342", "465")
-        find(solution, "999999999", "999999999")
+//        find(solution, "999999999", "999999999")
     }
 
     private fun find(solution: Solution, num1: String, num2: String) {
@@ -62,7 +63,7 @@ object Q2 {
                 tmpNode = tmpNode.next
             }
 
-            return BigDecimal(sb.toString())
+            return BigDecimal(sb.toString().reversed())
         }
 
         fun num2node(num: BigDecimal): ListNode? {
