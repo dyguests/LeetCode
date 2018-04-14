@@ -1,4 +1,4 @@
-package q1_twoSum
+package q1_TwoSum
 
 /**
  *
