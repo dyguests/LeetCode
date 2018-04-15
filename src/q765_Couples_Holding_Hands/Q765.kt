@@ -44,7 +44,7 @@ object Q765 {
                     list.removeAll(list.slice(0..1))
                     continue
                 }
-                val newCircleEndIndex = list.indexOf(findCouple(circleEnd))
+                val newCircleEndIndex = list.indexOf(circleEnd xor 1)
                 circleEnd = list[newCircleEndIndex xor 1]
                 val newCoupleIndexStart = newCircleEndIndex - newCircleEndIndex % 2
                 list.removeAll(list.slice(newCoupleIndexStart..(newCoupleIndexStart + 1)))
@@ -58,33 +58,8 @@ object Q765 {
             return times
         }
 
-        /**
-         * 简化（去掉已经成对的情侣，排序）
-         */
-        private fun simplify(row: IntArray): IntArray {
-            return (row.indices step 2).filter { !isCouple(row, it) }
-                    .map { listOf(row[it], row[it + 1]).sorted() }
-                    .flatten()
-                    .toIntArray()
-        }
-
-        private fun isSorted(row: IntArray): Boolean {
-            return (row.indices step 2).any { isCouple(row, it) }
-        }
-
-        private fun isCouple(row: IntArray, index: Int): Boolean {
-            return isCouple(row[index - index % 2], row[index - index % 2 + 1])
-        }
-
         private fun isCouple(people1: Int, people2: Int): Boolean {
             return people1 != people2 && people1 / 2 == people2 / 2
-        }
-
-        /**
-         * 取得这个人的另一半
-         */
-        private fun findCouple(people: Int): Int {
-            return people xor 1
         }
     }
 }
