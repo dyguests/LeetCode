@@ -16,10 +16,7 @@ object Q765 {
         find(solution, 0, 1, 2, 3)
         find(solution, 0, 2, 1, 3)
         find(solution, 3, 2, 0, 1)
-
-        test(solution, 1)
-        test(solution, 233)
-        test(solution, 12)
+        find(solution, 0, 1, 2, 4, 3, 5)
     }
 
     private fun find(solution: Solution, vararg row: Int) {
@@ -27,22 +24,27 @@ object Q765 {
         println("$row => $result")
     }
 
-    private fun test(solution: Solution, people: Int) {
-        println("$people->${solution.findCouple(people)}")
-    }
 
     class Solution {
         fun minSwapsCouples(row: IntArray): Int {
+            val rowSimplified: IntArray = simplify(row)
             val sorted = isSorted(row)
             println(sorted)
             return 0
         }
 
+        /**
+         * 去掉已经成对的情侣
+         */
+        private fun simplify(row: IntArray): IntArray {
+            return (row.indices step 2).filter { !isCouple(row, it) }
+                    .map { listOf(row[it], row[it + 1]) }
+                    .flatten()
+                    .toIntArray()
+        }
+
         private fun isSorted(row: IntArray): Boolean {
-            for (index in row.indices step 2) {
-                if (!isCouple(row, index)) return false
-            }
-            return true
+            return (row.indices step 2).any { isCouple(row, it) }
         }
 
         private fun isCouple(row: IntArray, index: Int): Boolean {
@@ -56,7 +58,7 @@ object Q765 {
         /**
          * 取得这个人的另一半
          */
-        fun findCouple(people: Int): Int {
+        private fun findCouple(people: Int): Int {
             return people xor 1
         }
     }
