@@ -30,7 +30,11 @@ object Q7 {
 
     class Solution {
         fun reverse(x: Int): Int {
-            return Math.abs(x).toString().reversed().toInt() * if (x >= 0) 1 else -1
+            return try {
+                Math.abs(x).toString().reversed().toInt() * if (x >= 0) 1 else -1
+            } catch (e: NumberFormatException) {
+                0
+            }
         }
     }
 }
