@@ -59,7 +59,7 @@ object Q765 {
         }
 
         private fun isCouple(people1: Int, people2: Int): Boolean {
-            return people1 != people2 && people1 / 2 == people2 / 2
+            return people1 == people2 xor 1
         }
     }
 }
