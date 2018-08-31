@@ -12,14 +12,14 @@ object Q2 {
     fun main(args: Array<String>) {
         val solution = Solution()
 
-//        find(solution, "81", "0")
+//        find(solution, "5", "5")
         find(solution, "342", "465")
 //        find(solution, "999999999", "999999999")
     }
 
     private fun find(solution: Solution, num1: String, num2: String) {
-        val l1 = solution.num2node(BigDecimal(num1))
-        val l2 = solution.num2node(BigDecimal(num2))
+        val l1 = num2node(BigDecimal(num1))
+        val l2 = num2node(BigDecimal(num2))
 
         val result = solution.addTwoNumbers(l1, l2)
 
@@ -45,33 +45,41 @@ object Q2 {
         return sb.toString()
     }
 
+    fun num2node(num: BigDecimal): ListNode? {
+        var node: ListNode? = null
+        num.toString().map { it.toString().toInt() }.forEach {
+            node = ListNode(it).apply { next = node }
+        }
+        return node
+    }
+
     class Solution {
-        fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
-            val nL1 = node2num(l1 ?: return null)
-            val nL2 = node2num(l2 ?: return null)
+        fun addTwoNumbers(node1: ListNode?, node2: ListNode?): ListNode? {
+            val wrap = ListNode(0)
 
-            return num2node(nL1 + nL2)
-        }
+            var pNode: ListNode? = wrap
 
-        private fun node2num(listNode: ListNode): BigDecimal {
-            var tmpNode: ListNode? = listNode
+            var pl1 = node1
+            var pl2 = node2
 
-            val sb = StringBuilder()
+            var result = 0
+            var current = 0
+            var carry = 0
 
-            while (tmpNode?.`val` != null) {
-                sb.append(tmpNode.`val`)
-                tmpNode = tmpNode.next
-            }
+            do {
+                result = (pl1?.`val` ?: 0) + (pl2?.`val` ?: 0) + carry
+                current = result % 10
+                carry = result / 10
 
-            return BigDecimal(sb.toString().reversed())
-        }
+                pNode?.next = ListNode(current)
 
-        fun num2node(num: BigDecimal): ListNode? {
-            var node: ListNode? = null
-            num.toString().map { it.toString().toInt() }.forEach {
-                node = ListNode(it).apply { next = node }
-            }
-            return node
+                pNode = pNode?.next
+                pl1 = pl1?.next
+                pl2 = pl2?.next
+
+            } while (pl1?.next != null || pl2?.next != null || carry > 0)
+
+            return wrap.next
         }
     }
 
