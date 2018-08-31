@@ -55,31 +55,17 @@ object Q2 {
 
     class Solution {
         fun addTwoNumbers(node1: ListNode?, node2: ListNode?): ListNode? {
-            val wrap = ListNode(0)
+            fun add(node1: ListNode?, node2: ListNode?, carry: Int = 0): ListNode? {
+                val result = (node1?.`val` ?: 0) + (node2?.`val` ?: 0) + carry
 
-            var pNode: ListNode? = wrap
+                return ListNode(result % 10).apply {
+                    if (node1?.next != null || node2?.next != null || result / 10 > 0) {
+                        next = add(node1?.next, node2?.next, result / 10)
+                    }
+                }
+            }
 
-            var pl1 = node1
-            var pl2 = node2
-
-            var result = 0
-            var current = 0
-            var carry = 0
-
-            do {
-                result = (pl1?.`val` ?: 0) + (pl2?.`val` ?: 0) + carry
-                current = result % 10
-                carry = result / 10
-
-                pNode?.next = ListNode(current)
-
-                pNode = pNode?.next
-                pl1 = pl1?.next
-                pl2 = pl2?.next
-
-            } while (pl1?.next != null || pl2?.next != null || carry > 0)
-
-            return wrap.next
+            return add(node1, node2)
         }
     }
 
