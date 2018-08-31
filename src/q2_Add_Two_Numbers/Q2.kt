@@ -58,7 +58,7 @@ object Q2 {
 
     class Solution {
         fun addTwoNumbers(node1: ListNode?, node2: ListNode?): ListNode? {
-            fun add(node1: ListNode?, node2: ListNode?, carry: Int): ListNode? {
+            fun add(node1: ListNode?, node2: ListNode?, carry: Int = 0): ListNode? {
                 val result = (node1?.`val` ?: 0) + (node2?.`val` ?: 0) + carry
 
                 return ListNode(result % 10).apply {
