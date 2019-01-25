@@ -25,16 +25,13 @@ object Q70 {
     class Solution {
         fun climbStairs(n: Int): Int {
             if (n < 3) return n
-            var a = 1
-            var b = 2
-            for (i in 3..n) {
-                a = a xor b
-                b = b xor a
-                a = a xor b
-                b += a
+            var p = 2
+            val kinds = arrayOf(1, 2)
+            while (p < n) {
+                kinds[p % 2] += kinds[(p - 1) % 2]
+                p++
             }
-
-            return b
+            return kinds[(p - 1) % 2]
         }
     }
 }
